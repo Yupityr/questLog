@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 // const achievementSchema = require("./Achivement");
 
 const chapterSchema = new mongoose.Schema({
@@ -11,4 +11,5 @@ const chapterSchema = new mongoose.Schema({
     // achievements:[achievementSchema]
 },{timestamps: true});
 
-module.exports = mongoose.model("Chapter", chapterSchema);
+const Chapter = mongoose.model("Chapter", chapterSchema);
+export default Chapter;
