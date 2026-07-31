@@ -1,25 +1,27 @@
-const express = require("express");
+import express from 'express';
+import Chapter from '../models/Chapter.js';
+
+import {
+  getChapters,
+  createChapter,
+  updateChapter,
+  deleteChapter,
+} from '../controllers/chapterController.js';
+
+
 const router = express.Router();
 
-const Chapter = require("../models/Chapter");
+// GET /chapters
+router.get('/', getChapters);
 
-router.get("/chapters", async (req, res) => {
-    const chapters = await Chapter.find();
-    res.json(chapters);
-})
+// POST /chapters
+router.post('/', createChapter);
 
-router.get("/chapters1", async (req, res) => {
-    res.json({message: "Hello World"});
-})
+// PATCH /chapters/:id
+router.patch('/:id', updateChapter);
 
-router.post("/chapters", async (req, res) => {
-    try {
-        const user = await Chapter.create(req.body);
+// DELETE /chapters/:id
+router.delete('/:id', deleteChapter);
 
-        res.status(201).json(user);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-module.exports = router;
+const chapterRoutes = router;
+export default chapterRoutes;
