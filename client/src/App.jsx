@@ -3,7 +3,7 @@ import { useChapters } from "./context/ChaptersContext";
 
 function App() {
   const { chapters, loading, error, fetchChapters, addChapter, deleteChapter } = useChapters();
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
   // const [test, setTest] = useState([]); 
   
   useEffect(() => {
@@ -16,7 +16,8 @@ function App() {
   //   setInput("")
   // }
 
-  const handleAdd = async () => {
+  const handleAdd = async (e) => {
+    e.preventDefault();
     if (!input.trim()) return;
     await addChapter({
       title: input,
@@ -33,7 +34,7 @@ function App() {
         <div>
           <form className="flex gap-1" onSubmit={handleAdd}>
             <input className="outline-1" onChange={(e) => setInput(e.target.value)} type="text" value={input}/>
-            <button className="outline-1" onClick={handleAdd}>
+            <button className="outline-1" type="submit">
               Submit
             </button>
           </form>
@@ -43,8 +44,8 @@ function App() {
         ) : (
           <ul className="pt-3">
             {chapters.map((item) => (
-              <div className="flex flex-row gap-2">
-                <li key={item._id}>{item.title}</li>
+              <div key={item._id} className="flex flex-row gap-2">
+                <li>{item.title}</li>
                 <button className="outline" onClick={() => deleteChapter(item._id)}>
                   Complete
                 </button>

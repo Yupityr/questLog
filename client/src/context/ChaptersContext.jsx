@@ -12,7 +12,7 @@ export function ChaptersProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await api.get('/chapters/chapters');
+      const res = await api.get('/chapters');
       setChapters(res.data);
     } catch (err) {
       setError(err.response?.data?.error || err.message);
@@ -24,7 +24,7 @@ export function ChaptersProvider({ children }) {
   const addChapter = useCallback(async (newChapter) => {
     setError(null);
     try {
-      const res = await api.post('/chapters/chapters', newChapter);
+      const res = await api.post('/chapters', newChapter);
       setChapters((prev) => [...prev, res.data]);
       return res.data;
     } catch (err) {
@@ -36,7 +36,7 @@ export function ChaptersProvider({ children }) {
   const deleteChapter = useCallback(async (id) => {
     setError(null);
     try {
-      await api.delete(`/items/${id}`);
+      await api.delete(`/chapters/${id}`);
       setChapters((prev) => prev.filter((item) => item._id !== id));
     } catch (err) {
       setError(err.response?.data?.error || err.message);
