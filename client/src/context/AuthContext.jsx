@@ -1,60 +1,48 @@
-import { createContext, useContext, useState, useCallback } from 'react';
-import api from '../api/axios';
+// src/context/AuthContext.jsx
+import { createContext, useContext, useState, useEffect } from "react";
+import api from "../api/axios";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [chapters, setChapters] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const fetchChapters = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  const fetchMe = async () => {
     try {
-      const res = await api.get('/chapters');
-      setChapters(res.data);
-    } catch (err) {
-      setError(err.response?.data?.error || err.message);
+      const { data } = await api.get("/auth/me");
+      setUser(data);
+    } catch {
+      setUser(null);
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchMe();
   }, []);
 
-  const addChapter = useCallback(async (newChapter) => {
-    setError(null);
-    try {
-      const res = await api.post('/chapters', newChapter);
-      setChapters((prev) => [...prev, res.data]);
-      return res.data;
-    } catch (err) {
-      setError(err.response?.data?.error || err.message);
-      throw err;
-    }
-  }, []);
+  const register = async (username, email, password) => {
+    const { data } = await api.post("/auth/register", { username, email, password });
+    setUser(data);
+  };
 
-  const deleteChapter = useCallback(async (id) => {
-    setError(null);
-    try {
-      await api.delete(`/chapters/${id}`);
-      setChapters((prev) => prev.filter((item) => item._id !== id));
-    } catch (err) {
-      setError(err.response?.data?.error || err.message);
-      throw err;
-    }
-  }, []);
+  const login = async (email, password) => {
+    const { data } = await api.post("/auth/login", { email, password });
+    setUser(data);
+  };
+
+  const logout = async () => {
+    await api.post("/auth/logout");
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ chapters, loading, error, fetchChapters, addChapter, deleteChapter }}
-    >
+    <AuthContext.Provider value={{ user, loading, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useContext() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useContext must be used within an AuthProvider');
-  return ctx;
-}
+export const useAuth = () => useContext(AuthContext);
