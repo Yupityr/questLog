@@ -24,7 +24,14 @@ function PublicOnlyRoute({ children }) {
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route 
+        path="/" 
+        element={
+          <PrivateRoute>
+            <Home/>
+          </PrivateRoute>
+        } 
+      />
 
       <Route
         path="/signin"
