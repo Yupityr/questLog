@@ -13,13 +13,14 @@ export default function Home() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div style={{ maxWidth: 360, margin: "0 auto" }}>
+    <div className="min-w-screen min-h-screen flex justify-center pt-[25vh]">
       {user ? (
-        <>
+        <div>
           <h1>Hello, {user.username}</h1>
           <p>{user.email}</p>
           <button onClick={handleLogout}>Log out</button>
-        </>
+          <img src="/mage.svg" alt="Pixel art mage" width="128" height="256" />
+        </div>
       ) : (
         <p>Not signed in.</p>
       )}

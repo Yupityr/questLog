@@ -29,13 +29,14 @@ export default function SignIn() {
   };
 
   return (
-    <div style={{ maxWidth: 360, margin: "0 auto" }}>
+    <div className="flex flex-col items-center pt-[25vh]">
       <h1>Sign in</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="flex gap-1 justify-between">
           <label htmlFor="email">Email</label>
           <input
+            className="border rounded"
             id="email"
             name="email"
             type="email"
@@ -45,9 +46,10 @@ export default function SignIn() {
           />
         </div>
 
-        <div>
+        <div className="flex gap-1 justify-between">
           <label htmlFor="password">Password</label>
           <input
+            className="border rounded"
             id="password"
             name="password"
             type="password"
@@ -59,7 +61,7 @@ export default function SignIn() {
 
         {error && <p role="alert">{error}</p>}
 
-        <button type="submit" disabled={submitting}>
+        <button className="flex justify-center min-w-full" type="submit" disabled={submitting}>
           {submitting ? "Signing in..." : "Sign in"}
         </button>
       </form>

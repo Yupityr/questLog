@@ -37,13 +37,14 @@ export default function SignUp() {
   };
 
   return (
-    <div style={{ maxWidth: 360, margin: "0 auto" }}>
+    <div className="flex flex-col items-center pt-[25vh]">
       <h1>Sign up</h1>
 
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="flex gap-1 justify-between">
           <label htmlFor="username">Username</label>
           <input
+            className="border rounded"
             id="username"
             name="username"
             type="text"
@@ -53,9 +54,10 @@ export default function SignUp() {
           />
         </div>
 
-        <div>
+        <div className="flex gap-1 justify-between">
           <label htmlFor="email">Email</label>
           <input
+            className="border rounded"
             id="email"
             name="email"
             type="email"
@@ -65,9 +67,10 @@ export default function SignUp() {
           />
         </div>
 
-        <div>
+        <div className="flex gap-1 justify-between">
           <label htmlFor="password">Password</label>
           <input
+            className="border rounded"
             id="password"
             name="password"
             type="password"
@@ -79,7 +82,7 @@ export default function SignUp() {
 
         {error && <p role="alert">{error}</p>}
 
-        <button type="submit" disabled={submitting}>
+        <button className="flex justify-center min-w-full" type="submit" disabled={submitting}>
           {submitting ? "Creating account..." : "Create account"}
         </button>
       </form>
