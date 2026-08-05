@@ -7,7 +7,7 @@ export default function Home() {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/signin");
+    navigate("/");
   };
 
   if (loading) return <p>Loading...</p>;
@@ -18,6 +18,7 @@ export default function Home() {
         <div className="flex min-w-full flex-col items-center">
           <h1>Hello, {user.username}</h1>
           <button onClick={handleLogout}>Log out</button>
+          <button onClick={() => navigate("/quest")}>Accomplishments</button>
           <img className="flex pt-[2vh]" src="/mage.svg" alt="Pixel art mage" width="128" height="256" />
         </div>
       ) : (

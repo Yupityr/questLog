@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
+import { LandingPage } from "../pages/LandingPage";
+import Quest from "../pages/Quest";
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth();
@@ -22,15 +24,29 @@ function PublicOnlyRoute({ children }) {
 }
 
 export default function AppRoutes() {
+  const {user} = useAuth();
   return (
     <Routes>
       <Route 
-        path="/" 
+        path="/"
         element={
+          user ?
           <PrivateRoute>
             <Home/>
           </PrivateRoute>
-        } 
+          :
+          <PublicOnlyRoute>
+            <LandingPage></LandingPage>
+          </PublicOnlyRoute>
+        }
+      >
+      </Route>
+
+      <Route path="quest" element={
+          <PrivateRoute>
+            <Quest/>
+          </PrivateRoute> 
+        }
       />
 
       <Route
