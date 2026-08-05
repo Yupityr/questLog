@@ -15,11 +15,10 @@ export default function Home() {
   return (
     <div className="min-w-screen min-h-screen flex justify-center pt-[25vh]">
       {user ? (
-        <div>
+        <div className="flex min-w-full flex-col items-center">
           <h1>Hello, {user.username}</h1>
-          <p>{user.email}</p>
           <button onClick={handleLogout}>Log out</button>
-          <img src="/mage.svg" alt="Pixel art mage" width="128" height="256" />
+          <img className="flex pt-[2vh]" src="/mage.svg" alt="Pixel art mage" width="128" height="256" />
         </div>
       ) : (
         <p>Not signed in.</p>
