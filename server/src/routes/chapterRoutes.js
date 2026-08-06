@@ -1,5 +1,6 @@
 import express from 'express';
 import Chapter from '../models/Chapter.js';
+import { protect } from "../middleware/authMiddleware.js";
 
 import {
   getChapters,
@@ -12,16 +13,16 @@ import {
 const router = express.Router();
 
 // GET /chapters
-router.get('/', getChapters);
+router.get('/',protect, getChapters);
 
 // POST /chapters
-router.post('/', createChapter);
+router.post('/',protect, createChapter);
 
 // PATCH /chapters/:id
-router.patch('/:id', updateChapter);
+router.patch('/:id',protect, updateChapter);
 
 // DELETE /chapters/:id
-router.delete('/:id', deleteChapter);
+router.delete('/:id',protect, deleteChapter);
 
 const chapterRoutes = router;
 export default chapterRoutes;

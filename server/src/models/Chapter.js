@@ -8,6 +8,12 @@ const chapterSchema = new mongoose.Schema({
         trim: true,
     },
 
+    legend: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    }
+
     // achievements:[achievementSchema]
 },{timestamps: true});
 

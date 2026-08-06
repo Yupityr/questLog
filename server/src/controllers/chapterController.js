@@ -16,7 +16,10 @@ export const getChapters = async (req, res) => {
 // POST /chapters
 export const createChapter = async (req, res) => {
   try {
-    const chapter = await Chapter.create(req.body);
+    const chapter = await Chapter.create({
+      ...req.body,
+      legend: req.user._id
+    });
 
     res.status(201).json(chapter);
   } catch (error) {
@@ -29,8 +32,11 @@ export const createChapter = async (req, res) => {
 // PATCH /chapters/:id
 export const updateChapter = async (req, res) => {
   try {
-    const updatedChapter = await Chapter.findByIdAndUpdate(
-      req.params.id,
+    const updatedChapter = await Chapter.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        legend: req.user._id,
+      },
       req.body,
       {
         new: true,
@@ -55,8 +61,11 @@ export const updateChapter = async (req, res) => {
 // DELETE /chapters/:id
 export const deleteChapter = async (req, res) => {
   try {
-    const deletedChapter = await Chapter.findByIdAndDelete(
-      req.params.id
+    const deletedChapter = await Chapter.findOneAndDelete(
+      {
+        _id: req.params.id,
+        legend: req.user._id
+      }
     );
 
     if (!deletedChapter) {
