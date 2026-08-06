@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(cors({
-  origin: "https://qlogs.netlify.app", // exact frontend origin, not "*"
+  origin: process.env.NODE_ENV === "production" ? "https://qlogs.netlify.app" : "http://localhost:5173", // exact frontend origin, not "*"
   credentials: true,
 }));
 app.use(express.json());
