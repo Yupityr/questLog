@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-export function LandingPage() {
+export default function LandingPage() {
     const navigate = useNavigate();
     return (
         <div className="flex flex-col items-center pt-[25vh] gap-1">

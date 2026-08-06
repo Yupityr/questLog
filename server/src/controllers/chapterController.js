@@ -3,7 +3,7 @@ import Chapter from "../models/Chapter.js";
 // GET all chapters
 export const getChapters = async (req, res) => {
     try{
-        const chapters = await Chapter.find();
+        const chapters = await Chapter.find({legend: req.user._id});
 
         res.status(200).json(chapters);
     } catch (error) {
