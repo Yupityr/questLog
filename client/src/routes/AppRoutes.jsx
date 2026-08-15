@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const SignIn = lazy(() => import("../pages/SignIn"));
 const SignUp = lazy(() => import("../pages/SignUp"));
@@ -26,7 +27,7 @@ export default function AppRoutes() {
   if (loading) return null;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader/>}>
       <Routes>
         <Route path="/" element={user ? <Home /> : <LandingPage />} />
         <Route path="quest" element={<PrivateRoute><Quest /></PrivateRoute>} />

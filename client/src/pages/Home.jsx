@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export default function Home() {
   const { user, loading, logout } = useAuth();
@@ -10,7 +11,7 @@ export default function Home() {
     navigate("/");
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
 
   return (
     <div className="min-w-screen min-h-screen flex justify-center pt-[25vh]">

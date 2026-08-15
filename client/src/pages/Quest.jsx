@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useChapters } from "../context/ChaptersContext";
+import Loader from "../components/Loader";
 
 function Quest() {
   const { chapters, loading, error, fetchChapters, addChapter, deleteChapter } = useChapters();
@@ -19,7 +20,7 @@ function Quest() {
     setInput('');
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
