@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.CLIENT_ENV
+const API_URL = import.meta.env.CLIENT_ENV === "production"
     ? import.meta.env.VITE_PROD_API
     : import.meta.env.VITE_DEV_API;
 
