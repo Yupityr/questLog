@@ -39,12 +39,15 @@ function Quest() {
         ) : (
           <ul className="pt-3">
             {chapters.map((item) => (
-              <div key={item._id} className="flex flex-row gap-2">
-                <li>{item.title}</li>
-                <button className="outline" onClick={() => deleteChapter(item._id)}>
-                  Complete
+              <li key={item._id} className="flex flex-row max-w-[50vw] min-h-[5vh] justify-between gap-1 m-5 border">
+                <div className="flex flex-col">
+                  <span className="min-w-0 flex-1 wrap-anywhere ">{item.title}</span>
+                  <small>{new Date(item.createdAt).toLocaleString()}</small>
+                </div>
+                <button className="outline shrink-0" onClick={() => deleteChapter(item._id)}>
+                  Delete
                 </button>
-              </div>
+              </li>
             ))}
           </ul>
         )}
